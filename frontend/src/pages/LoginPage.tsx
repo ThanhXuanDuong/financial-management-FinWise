@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -12,6 +10,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {FormEvent, useCallback, useMemo, useState} from "react";
+import axios from "axios";
+import {Alert, AlertTitle} from "@mui/material";
+import {useNavigate, useSearchParams} from "react-router-dom";
 
 function Copyright(props: any) {
     return (
@@ -28,15 +30,46 @@ function Copyright(props: any) {
 
 const theme = createTheme();
 
-export default function SignInPage() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+export default function LoginPage() {
+    const [credentials, setCredentials] = useState({
+        "username": "",
+        "password" : ""
+    });
+
+    const [searchParams] = useSearchParams();
+    const redirect = useMemo(
+        () => searchParams.get("redirect") || "/",
+        [searchParams]
+    );
+    const navigate = useNavigate();
+
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const {name, value} = event.target;
+            setCredentials({...credentials,[name]: value})
+        },
+        [credentials, setCredentials],
+    );
+
+    const [error, setError] = useState<string>("");
+
+    const handleSubmit = useCallback(async(event:FormEvent<HTMLFormElement>) =>{
+            event.preventDefault();
+            setError("");
+
+            try {
+                await axios.post("/api/app-users/login", null, {
+                    headers:
+                        {
+                            "Authorization": "Basic " + window.btoa(`${credentials.username}:${credentials.password}`)
+                        }
+                });
+                navigate(redirect);
+            }catch (e) {
+                setError("Invalid username oder password");
+            }
+        }, [credentials,navigate,redirect]
+    );
 
     return (
         <ThemeProvider theme={theme}>
@@ -61,11 +94,13 @@ export default function SignInPage() {
                             margin="normal"
                             required
                             fullWidth
-                            id="email"
-                            label="Email Address"
-                            name="email"
-                            autoComplete="email"
+                            id="username"
+                            label="Username"
+                            name="username"
+                            value={credentials.username}
+                            autoComplete="username"
                             autoFocus
+                            onChange = {handleChange}
                         />
                         <TextField
                             margin="normal"
@@ -75,12 +110,16 @@ export default function SignInPage() {
                             label="Password"
                             type="password"
                             id="password"
+                            value={credentials.password}
                             autoComplete="current-password"
+                            onChange = {handleChange}
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Remember me"
-                        />
+                        {error &&
+                            <Alert severity="error" sx={{mb: 2}}>
+                                <AlertTitle>Error</AlertTitle>
+                                {error}
+                            </Alert>
+                        }
                         <Button
                             type="submit"
                             fullWidth
@@ -96,7 +135,7 @@ export default function SignInPage() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href="#" variant="body2">
+                                <Link href={"/signup"} variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>
