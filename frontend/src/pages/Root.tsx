@@ -1,11 +1,18 @@
-import {Route, Routes} from "react-router-dom";
+import {Route, Routes, useSearchParams} from "react-router-dom";
 import LoginPage from "./LoginPage";
 import DashboardPage from "./DashboardPage";
 import Auth from "../login/Auth";
 import SignUpPage from "./SignUpPage";
 import HomePage from "./HomePage";
+import {useMemo} from "react";
+import NoAuth from "../login/NoAuth";
 
 export default function Root(){
+    const [searchParams] = useSearchParams();
+    const redirect = useMemo(
+        () => searchParams.get("redirect") || "/",
+        [searchParams]
+    );
     return (
       <>
         <Routes>
@@ -13,12 +20,16 @@ export default function Root(){
                 <Route path={"/"} element={<HomePage/>}/>
 
                 <Route path={"/signup"} element={
+                    <NoAuth redirect={redirect}>
                         <SignUpPage />
+                    </NoAuth>
                  }
                 />
 
                 <Route path={"/login"} element={
+                    <NoAuth redirect={redirect}>
                         <LoginPage />
+                    </NoAuth>
                     }
                 />
 

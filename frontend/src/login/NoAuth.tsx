@@ -1,13 +1,21 @@
 import React from "react";
+import {Navigate} from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 export default function NoAuth({
-    children
+    children,
+    redirect
 }: {
-    children: React.ReactNode
+    children: React.ReactNode,
+    redirect: string | null,
 }){
-    return (
-        <div>
-            {children}
-        </div>
+    const {user, isLoading} = useAuth();
+
+    return ( isLoading ? null:
+            <>
+                {user
+                    ? (redirect && <Navigate to={redirect}/>)
+                    : children}
+            </>
     )
 }

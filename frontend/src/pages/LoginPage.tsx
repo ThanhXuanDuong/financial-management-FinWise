@@ -13,7 +13,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {FormEvent, useCallback, useMemo, useState} from "react";
 import axios from "axios";
 import {Alert, AlertTitle} from "@mui/material";
-import {useNavigate, useSearchParams} from "react-router-dom";
+import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
 
 function Copyright(props: any) {
     return (
@@ -42,6 +42,7 @@ export default function LoginPage() {
         [searchParams]
     );
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleChange = useCallback(
         (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -135,7 +136,7 @@ export default function LoginPage() {
                                 </Link>
                             </Grid>
                             <Grid item>
-                                <Link href={"/signup"} variant="body2">
+                                <Link href={"/signup" + location.search} variant="body2">
                                     {"Don't have an account? Sign Up"}
                                 </Link>
                             </Grid>

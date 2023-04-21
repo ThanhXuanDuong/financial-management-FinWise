@@ -10,6 +10,10 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {FormEvent, useCallback, useState} from "react";
+import axios from "axios";
+import {useLocation, useNavigate} from "react-router-dom";
+import {Alert, AlertTitle} from "@mui/material";
 
 function Copyright(props: any) {
     return (
@@ -27,14 +31,35 @@ function Copyright(props: any) {
 const theme = createTheme();
 
 export default function SignUpPage() {
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
-    };
+    const [credentials, setCredentials] = useState({
+        "username": "",
+        "password" : ""
+    });
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const handleChange = useCallback(
+        (event: React.ChangeEvent<HTMLInputElement>) => {
+            const {name, value} = event.target;
+            setCredentials({...credentials,[name]: value})
+        },
+        [credentials, setCredentials],
+    );
+    const [error, setError] = useState<string>("");
+
+    const handleSubmit = useCallback(async(event:FormEvent<HTMLFormElement>) =>{
+            event.preventDefault();
+            setError("");
+
+            try {
+                await axios.post("/api/app-users", credentials);
+                navigate("/login" + location.search);
+            }catch (e) {
+                setError("Invalid user");
+            }
+        }, [credentials, location.search, navigate]
+    );
 
     return (
         <ThemeProvider theme={theme}>
@@ -56,37 +81,20 @@ export default function SignUpPage() {
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
-                            <Grid item xs={12} sm={6}>
+                            <Grid item xs={12} >
                                 <TextField
                                     autoComplete="given-name"
-                                    name="firstName"
+                                    name="username"
                                     required
                                     fullWidth
-                                    id="firstName"
-                                    label="First Name"
+                                    id="username"
+                                    label="username"
+                                    value={credentials.username}
                                     autoFocus
+                                    onChange={handleChange}
                                 />
                             </Grid>
-                            <Grid item xs={12} sm={6}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="lastName"
-                                    label="Last Name"
-                                    name="lastName"
-                                    autoComplete="family-name"
-                                />
-                            </Grid>
-                            <Grid item xs={12}>
-                                <TextField
-                                    required
-                                    fullWidth
-                                    id="email"
-                                    label="Email Address"
-                                    name="email"
-                                    autoComplete="email"
-                                />
-                            </Grid>
+
                             <Grid item xs={12}>
                                 <TextField
                                     required
@@ -95,10 +103,19 @@ export default function SignUpPage() {
                                     label="Password"
                                     type="password"
                                     id="password"
+                                    value={credentials.password}
                                     autoComplete="new-password"
+                                    onChange={handleChange}
                                 />
                             </Grid>
                         </Grid>
+
+                        {error &&
+                            <Alert severity="error" sx={{mb: 2}}>
+                                <AlertTitle>Error</AlertTitle>
+                                {error}
+                            </Alert>
+                        }
                         <Button
                             type="submit"
                             fullWidth

@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {Navigate, useLocation} from "react-router-dom";
-import axios from "axios";
+import useAuth from "../hooks/useAuth";
 
 export default function Auth({
     children
@@ -9,28 +9,14 @@ export default function Auth({
 }){
    const location = useLocation();
 
-   const [user, setUser] = useState<{username:string}|null>(null);
-   const [isLoading, setIsLoading] = useState(true);
-
-   useEffect( () => {
-       (async() => {
-           try {
-               const user = await axios.get("/api/app-users/me");
-               setUser(user.data);
-           } catch (e) {
-           } finally {
-               setIsLoading(false);
-           }
-       })();
-       },[]);
+   const {user, isLoading} = useAuth();
 
     return ( isLoading ? null:
         <>
             {!user
-            ? (
-            <Navigate
-                to={`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
-            />)
+            ? (<Navigate
+                    to={`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`}
+                />)
             : children}
         </>
     )
