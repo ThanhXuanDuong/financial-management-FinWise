@@ -1,0 +1,19 @@
+package com.example.backend.transaction;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.Id;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Transaction {
+    @Id
+    private String id;
+    private String title;
+    private String datum;
+    private float amount;
+    private String category;
+    private String userId;
+}
