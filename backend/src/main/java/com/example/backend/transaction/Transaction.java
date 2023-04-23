@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 public class Transaction {
     @Id
     private String id;
-    private String title;
+    private String description;
     private String datum;
     private float amount;
     private String category;
