@@ -1,14 +1,20 @@
 import NavBar from "../components/NavBar";
-import ChartGalery from "../components/ChartGalery";
-import TransactionGalery from "../components/TransactionGalery";
+import ChartGallery from "../components/ChartGallery";
+import TransactionGalery from "../components/TransactionGallery";
 import Box from "@mui/material/Box";
+import useAuth from "../hooks/useAuth";
 
 export default function DashboardPage(){
+    const {user} = useAuth();
+
     return (
-        <Box sx = {{marginTop: "64px"}}>
-            <NavBar/>
-            <ChartGalery/>
-            <TransactionGalery/>
-        </Box>
+        <>
+            { user &&
+            <Box sx = {{marginTop: "64px"}}>
+                <NavBar/>
+                <ChartGallery/>
+                <TransactionGalery userId ={user.id}/>
+            </Box>}
+        </>
     )
 }

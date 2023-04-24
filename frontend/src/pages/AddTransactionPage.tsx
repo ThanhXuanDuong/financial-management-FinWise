@@ -1,13 +1,18 @@
 import TextField from "@mui/material/TextField";
 import Categories from "../components/Categories";
-import {Stack} from "@mui/material";
+import {IconButton, Stack} from "@mui/material";
 import React, {FormEvent, useCallback, useState} from "react";
 import Transaction from "../types/Transaction";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import {useNavigate} from "react-router-dom";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 
 export default function AddTransactionPage(){
     const {user} = useAuth();
+    const navigate = useNavigate();
 
     const initial = {
         description: "",
@@ -42,49 +47,59 @@ export default function AddTransactionPage(){
     };
 
     return (
-        <> {!user ? null :
+        <>
+            <IconButton onClick={() => navigate("/dashboard")}>
+                <ArrowBackIosIcon/>
+            </IconButton>
+            {!user ? null :
             <form onSubmit={onSubmit}>
-                <Stack>
-                    <TextField type="date"
-                               size="small"
-                               sx = {{width:"40%",
-                                   borderRadius:"5px",
-                                   backgroundColor:"secondary.main"}}
-                               name="datum"
-                               value={transaction.datum}
-                               onChange={handleChange}
-                    />
-                    <TextField type="number"
-                               variant="standard"
-                               placeholder="0,00"
-                               sx={{width:"80%",
-                                   "& .MuiInoutBase-root": {
-                                       height: 300
-                                   },
-                                   mb: 2
-                               }}
-                               name="amount"
-                               value={transaction.amount}
-                               onChange={handleChange}
-                    />
-                    <TextField type="text"
-                               variant="standard"
-                               placeholder="Description"
-                               sx={{width:"80%",
-                                   "& .MuiInoutBase-root": {
-                                       height: 300
-                                   },
-                                   mb: 2}}
-                               name="description"
-                               value={transaction.description}
-                               onChange={handleChange}
-                    />
-                </Stack>
+                <Container>
+                    <Stack>
+                        <TextField type="date"
+                                   size="small"
+                                   sx = {{width:"40%",
+                                       borderRadius:"5px",
+                                       backgroundColor:"secondary.main"}}
+                                   name="datum"
+                                   value={transaction.datum}
+                                   onChange={handleChange}
+                        />
+                        <TextField type="number"
+                                   variant="standard"
+                                   placeholder="0,00"
+                                   sx={{width:"80%",
+                                       "& .MuiInoutBase-root": {
+                                           height: 300
+                                       },
+                                       mb: 2
+                                   }}
+                                   name="amount"
+                                   value={transaction.amount}
+                                   onChange={handleChange}
+                        />
+                        <TextField type="text"
+                                   variant="standard"
+                                   placeholder="Description"
+                                   sx={{width:"80%",
+                                       "& .MuiInoutBase-root": {
+                                           height: 300
+                                       },
+                                       mb: 2}}
+                                   name="description"
+                                   value={transaction.description}
+                                   onChange={handleChange}
+                        />
 
-                <Categories onCategory={onCategory}/>
-                <button>File upload</button>
-                <div>Or</div>
-                <button>Add</button>
+                        <Categories onCategory={onCategory}/>
+                    </Stack>
+
+                    <Box display="flex" justifyContent="flex-end" gap={2}>
+                        <button>File upload</button>
+                        <div>Or</div>
+                        <button>Add</button>
+                    </Box>
+                </Container>
+
             </form>
         }
         </>

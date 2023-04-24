@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 export default function CategoryCard({
     category,
     onCategory
-}:{
+                                     }:{
     category:string,
     onCategory: (category:string) => void
 }) {

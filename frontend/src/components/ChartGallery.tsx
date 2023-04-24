@@ -1,4 +1,4 @@
-export default function ChartGalery(){
+export default function ChartGallery(){
     return (
         <div>
             Charts

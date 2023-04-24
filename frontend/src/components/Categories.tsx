@@ -9,7 +9,7 @@ export default function Categories({
     let categories = ["shopping", "internet", "transport"];
 
     return (
-        <Box display="flex">
+        <Box display="flex" justifyContent="space-between">
             {categories.map(c => <CategoryCard category={c} onCategory={onCategory}/>)}
         </Box>
 
