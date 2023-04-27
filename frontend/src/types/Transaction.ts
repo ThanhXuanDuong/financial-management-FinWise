@@ -2,7 +2,7 @@ type Transaction = {
     id?: string,
     description: string,
     datum: string,
-    amount:number,
+    amount: string,
     category: string,
     userId?: string|null
 };

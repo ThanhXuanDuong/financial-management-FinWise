@@ -13,7 +13,7 @@ public class Transaction {
     private String id;
     private String description;
     private String datum;
-    private float amount;
+    private String amount;
     private String category;
     private String userId;
 }

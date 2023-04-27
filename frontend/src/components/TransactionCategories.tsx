@@ -18,7 +18,7 @@ export default function TransactionCategories({transactions}:{transactions:Trans
     return (
         <>
             {transactionsByCategory.map(t =>
-                <Box display="flex" justifyContent="space-between">
+                <Box key ={t.category} display="flex" justifyContent="space-between">
                     <div>{t.category}</div>
                     <div>{t.count}</div>
                     <div>{t.sum}</div>

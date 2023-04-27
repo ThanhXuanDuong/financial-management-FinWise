@@ -9,15 +9,19 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import {useNavigate} from "react-router-dom";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import "./AddTransactionPage.css"
 
 export default function AddTransactionPage(){
     const {user} = useAuth();
     const navigate = useNavigate();
+    let currDate = new Date();
+    let date = currDate.toISOString().substring(0,10);
 
     const initial = {
         description: "",
-        datum: "",
-        amount: 0,
+        datum: date,
+        amount: "",
         category: "",
         userId: ""
     }
@@ -26,7 +30,7 @@ export default function AddTransactionPage(){
 
     const handleChange = useCallback((e:React.ChangeEvent<HTMLInputElement>) => {
         setTransaction({...transaction,
-                            [e.target.name]: e.target.value,
+                            [e.target.name]:e.target.value,
                             userId: user?.id});
     },[transaction, user]);
 
@@ -54,37 +58,32 @@ export default function AddTransactionPage(){
             {!user ? null :
             <form onSubmit={onSubmit}>
                 <Container>
-                    <Stack>
-                        <TextField type="date"
-                                   size="small"
-                                   sx = {{width:"40%",
-                                       borderRadius:"5px",
-                                       backgroundColor:"secondary.main"}}
-                                   name="datum"
-                                   value={transaction.datum}
-                                   onChange={handleChange}
-                        />
-                        <TextField type="number"
-                                   variant="standard"
-                                   placeholder="0,00"
-                                   sx={{width:"80%",
-                                       "& .MuiInoutBase-root": {
-                                           height: 300
-                                       },
-                                       mb: 2
-                                   }}
-                                   name="amount"
-                                   value={transaction.amount}
-                                   onChange={handleChange}
-                        />
+                    <Stack gap={5} mb={5}>
+                        <Box display="flex" justifyContent="flex-end">
+                            <TextField type="date"
+                                       size="small"
+                                       sx = {{width:"40%",
+                                           borderRadius:"5px",
+                                           backgroundColor:"secondary.main",
+                                       }}
+                                       name="datum"
+                                       value={transaction.datum}
+                                       onChange={handleChange}
+                            />
+                        </Box>
+
+                        <input type="number"
+                               className="amount-input"
+                               placeholder="0.00"
+                               autoFocus= {false}
+                               name="amount"
+                               value={transaction.amount}
+                               onChange={handleChange}/>
+
                         <TextField type="text"
                                    variant="standard"
                                    placeholder="Description"
-                                   sx={{width:"80%",
-                                       "& .MuiInoutBase-root": {
-                                           height: 300
-                                       },
-                                       mb: 2}}
+                                   fullWidth
                                    name="description"
                                    value={transaction.description}
                                    onChange={handleChange}
@@ -94,9 +93,8 @@ export default function AddTransactionPage(){
                     </Stack>
 
                     <Box display="flex" justifyContent="flex-end" gap={2}>
-                        <button>File upload</button>
-                        <div>Or</div>
-                        <button>Add</button>
+                        <Button variant="outlined">File upload</Button>
+                        <Button type="submit" variant="outlined">Add</Button>
                     </Box>
                 </Container>
 
