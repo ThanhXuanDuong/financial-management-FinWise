@@ -21,7 +21,7 @@ export default function TransactionGallery({userId} : {userId: string}){
 
     return (
         <Container sx ={{backgroundColor: "primary.main"}}>
-            <Box>
+            <Box marginY={5}>
                 <Filter filter={filter} setFilter={setFilter}/>
                 <AddTransactionButton/>
             </Box>
