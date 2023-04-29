@@ -49,7 +49,11 @@ export default function CategoryAccordion({
                         }
 
                     </Stack>
-                    <Typography variant="body1" color="text.secondary">
+                    <Typography variant="body1"
+                                color="text.secondary"
+                                sx={{color: parseFloat(sum) >=0
+                                        ? "green":"red"}}
+                    >
                         {sum}
                     </Typography>
                 </AccordionSummary>

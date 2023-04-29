@@ -1,6 +1,5 @@
 type Data ={
     name: string,
-    value:number
+    value: number
 };
-
 export default Data;

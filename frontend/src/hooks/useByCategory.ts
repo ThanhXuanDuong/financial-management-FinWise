@@ -1,9 +1,10 @@
 import Transaction from "../types/Transaction";
+import categories from "../types/category";
 
 export default function useByCategory(transactions:Transaction[]){
-    let categories = ["shopping", "internet", "transport"];
+    const allCategories = [...categories.expenses,...categories.income];
 
-    return categories.map(category => {
+    return allCategories.map(category => {
         const filtered = transactions.filter(t => t.category === category);
 
         const sum = filtered.length > 0

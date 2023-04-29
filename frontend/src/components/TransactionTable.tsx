@@ -14,6 +14,7 @@ export default function TransactionTable({transactions}: { transactions: Transac
         setRowsPerPage(+event.target.value);
         setPage(0);
     };
+
     return (
         <Paper sx={{width: '100%'}}>
             <TableContainer component={Paper}>
@@ -35,7 +36,10 @@ export default function TransactionTable({transactions}: { transactions: Transac
                                     {transaction.datum}
                                 </TableCell>
                                 <TableCell>{transaction.description}</TableCell>
-                                <TableCell>{transaction.amount}</TableCell>
+                                <TableCell sx={{color: parseFloat(transaction.amount) >=0
+                                                        ? "green":"red"}}>
+                                    {transaction.amount}
+                                </TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

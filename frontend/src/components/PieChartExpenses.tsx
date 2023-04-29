@@ -1,3 +1,4 @@
+import React from 'react';
 import {Cell, Legend, Pie, PieChart, ResponsiveContainer} from "recharts";
 import Data from "../types/data";
 
@@ -18,6 +19,7 @@ const renderCustomizedLabel = ({
 
     return (
         <text
+            style={{transitionDelay: "2"}}
             x={x}
             y={y}
             fill="white"
@@ -28,24 +30,26 @@ const renderCustomizedLabel = ({
         </text>
     );
 };
-export default function PieChartCategories({data}:{data:Data[]}) {
+export default function PieChartExpenses({data}:{data:Data[]}) {
+
     return (
         <ResponsiveContainer width="100%" height={250}>
             <PieChart width={200} height={200}>
                 <Pie data={data}
                      dataKey="value"
-                     nameKey="name"
                      cx="50%"
                      cy="50%"
                      labelLine={false}
                      label={renderCustomizedLabel}
                      outerRadius={100}
                      innerRadius={65}
+                     isAnimationActive={false}
                 >
                     {data.map((entry, index) => (
                         <Cell key={entry.name}
                               fill={COLORS[index % COLORS.length]}
-                              stroke={COLORS[index % COLORS.length]}/>
+                              stroke={COLORS[index % COLORS.length]}
+                        />
                     ))}
                 </Pie>
                 <Legend verticalAlign="bottom"/>
