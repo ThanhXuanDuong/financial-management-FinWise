@@ -7,6 +7,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Data from "../types/data";
 import {useState} from "react";
 import PieChartCategories from "./PieChartCategories";
+import BarChartCategories from "./BarChartCategories";
 
 const charts = [
     {art: "pie", title:""},
@@ -45,7 +46,7 @@ export default function ChartGallery({transactions} : {transactions: Transaction
                 <PieChartCategories data={data}/>
             }
             {currIndex === 1 &&
-                <PieChartCategories data={data}/>
+                <BarChartCategories data={data}/>
             }
             {currIndex === 2 &&
                 <PieChartCategories data={data}/>
