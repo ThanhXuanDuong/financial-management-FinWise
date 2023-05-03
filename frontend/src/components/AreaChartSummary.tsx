@@ -1,11 +1,20 @@
-import {Area, AreaChart,CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import {
+    Area,
+    CartesianGrid,
+    ComposedChart, Legend,
+    Line,
+    ResponsiveContainer,
+    Tooltip,
+    XAxis,
+    YAxis
+} from "recharts";
 import Summary from "../types/summary";
 
 export default function AreaChartSummary({data}:{data:Summary[]}){
 
     return (
         <ResponsiveContainer width="100%" height={250}>
-            <AreaChart width={730} height={250} data={data}
+            <ComposedChart width={730} height={250} data={data}
                        margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <defs>
                     <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -23,6 +32,8 @@ export default function AreaChartSummary({data}:{data:Summary[]}){
                 <Tooltip />
                 <Area type="monotone" dataKey="expenses" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
                 <Area type="monotone" dataKey="income" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-            </AreaChart>
+                <Line type="monotone" dataKey="diff" stroke="red" />
+                <Legend/>
+            </ComposedChart>
         </ResponsiveContainer>
     )}

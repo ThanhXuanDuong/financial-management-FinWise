@@ -1,5 +1,5 @@
 import TextField from "@mui/material/TextField";
-import Categories from "../components/Categories";
+import CategoryButtonGroup from "../components/CategoryButtonGroup";
 import {IconButton, Stack} from "@mui/material";
 import React, {FormEvent, useCallback, useState} from "react";
 import Transaction from "../types/Transaction";
@@ -34,8 +34,12 @@ export default function AddTransactionPage(){
                             userId: user?.id});
     },[transaction, user]);
 
-    const onCategory = (category: string) =>
+    const onCategory = (category: string) =>{
+        if (!category) return;
+
         setTransaction({...transaction, category: category});
+    }
+
 
     const onSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -89,11 +93,11 @@ export default function AddTransactionPage(){
                                    onChange={handleChange}
                         />
 
-                        <Categories onCategory={onCategory}/>
+                        <CategoryButtonGroup onCategory={onCategory}/>
                     </Stack>
 
                     <Box display="flex" justifyContent="flex-end" gap={2}>
-                        <Button variant="outlined">File upload</Button>
+                        <Button variant="outlined">Csv upload</Button>
                         <Button type="submit" variant="outlined">Add</Button>
                     </Box>
                 </Container>

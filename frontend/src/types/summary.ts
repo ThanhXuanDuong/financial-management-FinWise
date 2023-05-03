@@ -2,7 +2,7 @@ type DataSummary = {
     month: string
     expenses: number,
     income: number,
-    difference: number
+    diff: number
 }
 
 export default DataSummary;
