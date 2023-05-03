@@ -31,7 +31,6 @@ export default function ChartGallery({transactions} : {transactions: Transaction
     });
 
     const summaryByTimePeriod: Summary[] = useByTimePeriod(transactions);
-    console.log(summaryByTimePeriod);
 
     const [currIndex, setCurrIndex] = useState<number>(0);
     const goToPrevious = ()=> {

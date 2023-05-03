@@ -34,12 +34,16 @@ export default function AddTransactionPage(){
                             userId: user?.id});
     },[transaction, user]);
 
-    const onCategory = (category: string) =>{
+    const onCategory = (category: string, sign: string) =>{
         if (!category) return;
-
-        setTransaction({...transaction, category: category});
+        const amount = sign === "minus"
+            ? (-parseFloat(transaction.amount)).toString()
+            : parseFloat(transaction.amount).toString();
+        setTransaction({...transaction,
+                            category: category,
+                            amount: amount
+        });
     }
-
 
     const onSubmit = (e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();

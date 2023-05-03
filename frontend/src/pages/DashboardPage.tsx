@@ -12,10 +12,15 @@ export default function DashboardPage(){
     const [transactions, setTransactions] = useState<Transaction[]>([]);
 
     useEffect(() => {
-        (async () => {
-            const res = await axios.get("/api/transactions/user/" + user?.id);
-            setTransactions(res.data);
-        })()
+        if (!user) return;
+        try {
+            (async () => {
+                const res = await axios.get("/api/transactions/user/" + user.id);
+                setTransactions(res.data);
+            })()
+        } catch (e){
+            alert("Error while loading data");
+        }
     },[user])
 
     return (

@@ -6,7 +6,7 @@ import {useState} from "react";
 export default function CategoryButtonGroup({
     onCategory
 }:{
-    onCategory: (category:string) => void
+    onCategory: (category:string,sign:string) => void
 }) {
     const [clickedIdExp, setClickedIdExp] = useState(-1);
     const [clickedIdIncome, setClickedIdIncome] = useState(-1);
@@ -14,12 +14,12 @@ export default function CategoryButtonGroup({
     const handleClickExp = (category:string, id:number) => {
         setClickedIdExp(id);
         setClickedIdIncome(-1);
-        onCategory(category);
+        onCategory(category, "minus");
     };
     const handleClickIncome = (category:string, id:number) => {
         setClickedIdIncome(id);
         setClickedIdExp(-1);
-        onCategory(category);
+        onCategory(category,"plus");
     };
 
     return (
@@ -27,7 +27,7 @@ export default function CategoryButtonGroup({
             <Typography>Expenses</Typography>
             <Box display="flex" justifyContent="space-between" flexWrap="wrap" gap={2}>
                 {categories.expenses.map((category,index) =>
-                    <Card sx={{ width:100, height: 100 }}>
+                    <Card key ={category} sx={{ width:100, height: 100 }}>
                         <CardActionArea onClick={() => handleClickExp(category, index)}>
                             <CardContent>
                                 <Typography gutterBottom
@@ -45,7 +45,7 @@ export default function CategoryButtonGroup({
             <Typography>Income</Typography>
             <Box display="flex" justifyContent="space-between" flexWrap="wrap" gap={2}>
                 {categories.income.map((category,index) =>
-                    <Card sx={{ width:100, height: 100 }}>
+                    <Card key ={category} sx={{ width:100, height: 100 }}>
                         <CardActionArea onClick={() => handleClickIncome(category, index)}>
                             <CardContent>
                                 <Typography gutterBottom
