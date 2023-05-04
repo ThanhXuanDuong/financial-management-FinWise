@@ -10,8 +10,8 @@ export default function TransactionCategories({transactions}:{transactions:Trans
     return (
         <Box display="flex" flexDirection="column" gap={1}>
             {transactionsByCategory.map(t =>
-                <CategoryAccordion key={t.category}
-                                   category={t.category}
+                <CategoryAccordion key={t.category.name}
+                                   category={t.category.name}
                                    count={t.count}
                                    sum={t.sum}
                                    filtered={t.filtered}

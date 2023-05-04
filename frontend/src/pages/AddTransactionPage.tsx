@@ -61,7 +61,7 @@ export default function AddTransactionPage(){
     return (
         <>
             <IconButton onClick={() => navigate("/dashboard")}>
-                <ArrowBackIosIcon/>
+                <ArrowBackIosIcon sx={{color:'primary.contrastText'}}/>
             </IconButton>
             {!user ? null :
             <form onSubmit={onSubmit}>
@@ -70,9 +70,10 @@ export default function AddTransactionPage(){
                         <Box display="flex" justifyContent="flex-end">
                             <TextField type="date"
                                        size="small"
+                                       variant="standard"
                                        sx = {{width:"40%",
                                            borderRadius:"5px",
-                                           backgroundColor:"secondary.main",
+                                           input: { color: 'primary.contrastText' }
                                        }}
                                        name="datum"
                                        value={transaction.datum}
@@ -93,6 +94,7 @@ export default function AddTransactionPage(){
                                    placeholder="Description"
                                    fullWidth
                                    name="description"
+                                   sx={{ input: { color: 'primary.contrastText' } }}
                                    value={transaction.description}
                                    onChange={handleChange}
                         />

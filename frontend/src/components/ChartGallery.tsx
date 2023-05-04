@@ -23,7 +23,7 @@ export default function ChartGallery({transactions} : {transactions: Transaction
     const transactionsByCategory = useByCategory(transactions);
 
     const dataByCategory : Data[] = transactionsByCategory.map(t => {
-        return {name: t.category, value: parseFloat(t.sum)}
+        return {name: t.category.name, value: parseFloat(t.sum)}
     });
 
     const expenses = dataByCategory.filter(d => d.value<0).map(d => {

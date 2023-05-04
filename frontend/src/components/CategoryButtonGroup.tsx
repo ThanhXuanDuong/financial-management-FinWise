@@ -1,4 +1,4 @@
-import {Box, Card, CardActionArea, CardContent, Stack} from "@mui/material";
+import {Box, ButtonBase, Stack} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import categories from "../types/category";
 import {useState} from "react";
@@ -24,39 +24,59 @@ export default function CategoryButtonGroup({
 
     return (
         <Stack gap={2}>
-            <Typography>Expenses</Typography>
-            <Box display="flex" justifyContent="space-between" flexWrap="wrap" gap={2}>
+            <Typography sx={{color: "primary.contrastText"}}>Expenses</Typography>
+            <Box display="flex" justifyContent="center" flexWrap="wrap" gap={2}>
                 {categories.expenses.map((category,index) =>
-                    <Card key ={category} sx={{ width:100, height: 100 }}>
-                        <CardActionArea onClick={() => handleClickExp(category, index)}>
-                            <CardContent>
+                    <Box key ={category.name}
+                         display="flex"
+                         justifyContent="center"
+                         sx={{ width:100, height: 100, bgcolor:"white",borderRadius:5 }}>
+                        <ButtonBase onClick={() => handleClickExp(category.name, index)}>
+                            <Stack>
+                                <Box display="flex" justifyContent="center">
+                                    <img
+                                    height="50%"
+                                    width="50%"
+                                    src={category.url}
+                                    alt={category.name}
+                                    />
+                                </Box>
                                 <Typography gutterBottom
-                                            variant="body1"
+                                            variant="body2"
                                             sx={{color: clickedIdExp ===index ? "red":" black"}}
                                 >
-                                    {category}
+                                    {category.name}
                                 </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+                            </Stack>
+                        </ButtonBase>
+                    </Box>
                 )}
             </Box>
 
-            <Typography>Income</Typography>
-            <Box display="flex" justifyContent="space-between" flexWrap="wrap" gap={2}>
+            <Typography sx={{color: "primary.contrastText"}}>Income</Typography>
+            <Box display="flex" justifyContent="center" flexWrap="wrap" gap={2}>
                 {categories.income.map((category,index) =>
-                    <Card key ={category} sx={{ width:100, height: 100 }}>
-                        <CardActionArea onClick={() => handleClickIncome(category, index)}>
-                            <CardContent>
+                    <Box key ={category.name}
+                         display="flex"
+                         justifyContent="center"
+                         sx={{ width:100, height: 100, bgcolor:"white", borderRadius:5}}>
+                        <ButtonBase onClick={() => handleClickIncome(category.name, index)}>
+                            <Stack>
+                                <img
+                                    height="50%"
+                                    width="50p%"
+                                    src={category.url}
+                                    alt={category.name}
+                                />
                                 <Typography gutterBottom
-                                            variant="body1"
+                                            variant="body2"
                                             sx={{color: clickedIdIncome ===index ? "green":" black"}}
                                 >
-                                    {category}
+                                    {category.name}
                                 </Typography>
-                            </CardContent>
-                        </CardActionArea>
-                    </Card>
+                            </Stack>
+                        </ButtonBase>
+                    </Box>
                 )}
             </Box>
         </Stack>
