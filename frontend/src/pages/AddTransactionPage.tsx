@@ -11,6 +11,8 @@ import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import "./AddTransactionPage.css"
+import CsvUpload from "../components/CsvUpload";
+import Typography from "@mui/material/Typography";
 
 export default function AddTransactionPage(){
     const {user} = useAuth();
@@ -66,7 +68,7 @@ export default function AddTransactionPage(){
             {!user ? null :
             <form onSubmit={onSubmit}>
                 <Container>
-                    <Stack gap={5} mb={5}>
+                    <Stack gap={2} mb={2}>
                         <Box display="flex" justifyContent="flex-end">
                             <TextField type="date"
                                        size="small"
@@ -102,14 +104,18 @@ export default function AddTransactionPage(){
                         <CategoryButtonGroup onCategory={onCategory}/>
                     </Stack>
 
-                    <Box display="flex" justifyContent="flex-end" gap={2}>
-                        <Button variant="outlined">Csv upload</Button>
-                        <Button type="submit" variant="outlined">Add</Button>
-                    </Box>
+                    <Container>
+                        <Button type="submit" fullWidth variant="contained">Add</Button>
+                    </Container>
                 </Container>
-
             </form>
         }
+            <Container>
+                <Box display="flex" justifyContent="center" margin={2}>
+                    <Typography sx={{color: 'primary.contrastText'}}>Or</Typography>
+                </Box>
+                <CsvUpload/>
+            </Container>
         </>
 
     )
