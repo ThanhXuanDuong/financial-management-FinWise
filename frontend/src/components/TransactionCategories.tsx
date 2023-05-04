@@ -10,13 +10,15 @@ export default function TransactionCategories({transactions}:{transactions:Trans
     return (
         <Box display="flex" flexDirection="column" gap={1}>
             {transactionsByCategory.map(t =>
-                <CategoryAccordion key={t.category.name}
-                                   category={t.category.name}
+                (t.count > 0 && parseFloat(t.sum) !== 0 )
+                ? <CategoryAccordion key={t.category.name}
+                                   category={t.category}
                                    count={t.count}
                                    sum={t.sum}
                                    filtered={t.filtered}
-                />)
-            }
+                    />
+                : null
+            )}
         </Box>
 
     )

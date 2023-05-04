@@ -7,6 +7,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {Stack} from "@mui/material";
 import TransactionTable from "./TransactionTable";
 import Transaction from "../types/Transaction";
+import Box from "@mui/material/Box";
 
 export default function CategoryAccordion({
     category,
@@ -14,7 +15,7 @@ export default function CategoryAccordion({
     sum,
     filtered
 }: {
-    category: string,
+    category: {name:string, url: string},
     count: number,
     sum: string,
     filtered: Transaction[]
@@ -34,21 +35,33 @@ export default function CategoryAccordion({
                     aria-controls="panelbh-content"
                     id="panelbh-header"
                 >
-                    <Stack sx={{width: '66%', flexShrink: 0}}>
-                        <Typography variant="h6">
-                            {category}
-                        </Typography>
-
-                        {count === 1
-                            ? <Typography variant="body2" color="text.secondary">
-                                {count}Transaction
+                    <Box display="flex"
+                         alignItems="center"
+                         gap={2}
+                         sx={{width: '80%', flexShrink: 0}}>
+                        <img
+                            height="50"
+                            width="50"
+                            src={category.url}
+                            alt={category.name}
+                        />
+                        <Stack >
+                            <Typography variant="h6">
+                                {category.name}
                             </Typography>
-                            : <Typography variant="body2" color="text.secondary">
-                                {count}Transactions
-                            </Typography>
-                        }
 
-                    </Stack>
+                            {count === 1
+                                ? <Typography variant="body2" color="text.secondary">
+                                    {count}Transaction
+                                </Typography>
+                                : <Typography variant="body2" color="text.secondary">
+                                    {count}Transactions
+                                </Typography>
+                            }
+
+                        </Stack>
+                    </Box>
+
                     <Typography variant="body1"
                                 color="text.secondary"
                                 sx={{color: parseFloat(sum) >=0

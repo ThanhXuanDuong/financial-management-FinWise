@@ -12,7 +12,7 @@ export default function TransactionGallery({transactions} : {transactions: Trans
 
     return (
         <Container sx ={{backgroundColor: "primary.main"}}>
-            <Box marginY={5}>
+            <Box display="flex" justifyContent="space-between" marginY={5}>
                 <Filter filter={filter} setFilter={setFilter}/>
                 <AddTransactionButton/>
             </Box>
