@@ -68,7 +68,7 @@ export default function AddTransactionPage(){
             {!user ? null :
             <form onSubmit={onSubmit}>
                 <Container>
-                    <Stack gap={2} mb={2}>
+                    <Stack gap={2} mb={5}>
                         <Box display="flex" justifyContent="flex-end">
                             <TextField type="date"
                                        size="small"
@@ -96,7 +96,7 @@ export default function AddTransactionPage(){
                                    placeholder="Description"
                                    fullWidth
                                    name="description"
-                                   sx={{ input: { color: 'primary.contrastText' } }}
+                                   sx={{ input: { color: 'primary.contrastText' }, marginBottom:2 }}
                                    value={transaction.description}
                                    onChange={handleChange}
                         />

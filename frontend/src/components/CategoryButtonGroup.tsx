@@ -24,26 +24,27 @@ export default function CategoryButtonGroup({
 
     return (
         <Stack gap={2}>
-            <Typography sx={{color: "primary.contrastText"}}>Expenses</Typography>
+            <Typography sx={{color: "primary.main"}}>Expenses</Typography>
             <Box display="flex" justifyContent="center" flexWrap="wrap" gap={2}>
                 {categories.expenses.map((category,index) =>
                     <Box key ={category.name}
                          display="flex"
                          justifyContent="center"
-                         sx={{ width:100, height: 100, bgcolor:"white",borderRadius:5 }}>
+                         sx={{ width:90, height: 90, bgcolor:"white",borderRadius:5 }}>
                         <ButtonBase onClick={() => handleClickExp(category.name, index)}>
                             <Stack>
                                 <Box display="flex" justifyContent="center">
                                     <img
-                                    height="50%"
-                                    width="50%"
+                                    height="45%"
+                                    width="45%"
                                     src={category.url}
                                     alt={category.name}
                                     />
                                 </Box>
                                 <Typography gutterBottom
-                                            variant="body2"
-                                            sx={{color: clickedIdExp ===index ? "red":" black"}}
+                                            sx={{color: clickedIdExp ===index ? "red":" black",
+                                                fontSize:"12px"
+                                }}
                                 >
                                     {category.name}
                                 </Typography>
@@ -53,24 +54,25 @@ export default function CategoryButtonGroup({
                 )}
             </Box>
 
-            <Typography sx={{color: "primary.contrastText"}}>Income</Typography>
+            <Typography sx={{color: "primary.main"}}>Income</Typography>
             <Box display="flex" justifyContent="center" flexWrap="wrap" gap={2}>
                 {categories.income.map((category,index) =>
                     <Box key ={category.name}
                          display="flex"
                          justifyContent="center"
-                         sx={{ width:100, height: 100, bgcolor:"white", borderRadius:5}}>
+                         sx={{ width:90, height: 90, bgcolor:"white", borderRadius:5}}>
                         <ButtonBase onClick={() => handleClickIncome(category.name, index)}>
                             <Stack>
                                 <img
-                                    height="50%"
-                                    width="50p%"
+                                    height="45%"
+                                    width="45p%"
                                     src={category.url}
                                     alt={category.name}
                                 />
                                 <Typography gutterBottom
-                                            variant="body2"
-                                            sx={{color: clickedIdIncome ===index ? "green":" black"}}
+                                            sx={{color: clickedIdIncome ===index ? "green":" black",
+                                                fontSize:"12px"
+                                }}
                                 >
                                     {category.name}
                                 </Typography>

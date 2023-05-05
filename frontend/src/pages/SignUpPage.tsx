@@ -1,34 +1,18 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import {FormEvent, useCallback, useState} from "react";
 import axios from "axios";
 import {useLocation, useNavigate} from "react-router-dom";
 import {Alert, AlertTitle} from "@mui/material";
-
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const theme = createTheme();
+import themeDark from "../themes/themeDark";
 
 export default function SignUpPage() {
     const [credentials, setCredentials] = useState({
@@ -62,22 +46,44 @@ export default function SignUpPage() {
     );
 
     return (
-        <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+        <ThemeProvider theme={themeDark}>
+            <Container component="main"
+                       maxWidth="xs"
+                       sx={{
+                           display:"flex",
+                           justifyContent:"center",
+                           height:"100vh",
+                           background: 'linear-gradient(to bottom, #484E54 0%,#484E54 60%, #20C6BE 60%, #20C6BE 100%)',
+                           overflow: 'hidden',
+                           position:"relative"
+                       }}
+            >
                 <CssBaseline />
+                <Container sx={{position: "absolute", top: "10%"}}>
+                    <img
+                        width="100%"
+                        src="/logo.png"
+                        alt="logo"
+                    />
+                </Container>
+
                 <Box
                     sx={{
-                        marginTop: 8,
+                        position: "absolute",
+                        bottom: "15%",
+                        width:"85%",
+                        marginX: "auto",
+                        padding: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        boxShadow: 2,
+                        borderRadius: 2
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign up
+                    <Typography component="h1" variant="h5" color="secondary.contrastText">
+                        Sign Up
                     </Typography>
                     <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                         <Grid container spacing={2}>
@@ -91,6 +97,17 @@ export default function SignUpPage() {
                                     label="username"
                                     value={credentials.username}
                                     autoFocus
+                                    sx={{
+                                        input: {
+                                            color: "#000000",
+                                            background: "#DEE0E6"
+                                        },
+                                        label: {
+                                            color: "#000000"
+                                        },
+                                        boxShadow: 2,
+                                        borderRadius: 2
+                                    }}
                                     onChange={handleChange}
                                 />
                             </Grid>
@@ -100,11 +117,22 @@ export default function SignUpPage() {
                                     required
                                     fullWidth
                                     name="password"
-                                    label="Password"
+                                    label="password"
                                     type="password"
                                     id="password"
                                     value={credentials.password}
                                     autoComplete="new-password"
+                                    sx={{
+                                        input: {
+                                            color: "#000000",
+                                            background: "#DEE0E6"
+                                        },
+                                        label: {
+                                            color: "#000000"
+                                        },
+                                        boxShadow: 2,
+                                        borderRadius: 2
+                                    }}
                                     onChange={handleChange}
                                 />
                             </Grid>
@@ -124,7 +152,7 @@ export default function SignUpPage() {
                         >
                             Sign Up
                         </Button>
-                        <Grid container justifyContent="flex-end">
+                        <Grid container justifyContent="center">
                             <Grid item>
                                 <Link href={"/login"} variant="body2">
                                     Already have an account? Sign in
@@ -133,7 +161,6 @@ export default function SignUpPage() {
                         </Grid>
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 5 }} />
             </Container>
         </ThemeProvider>
     );

@@ -11,7 +11,8 @@ import {FormEvent, useCallback, useMemo, useState} from "react";
 import axios from "axios";
 import {Alert, AlertTitle} from "@mui/material";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
-import theme from "../themes/themeDark";
+import themeDark from "../themes/themeDark";
+import Grid from "@mui/material/Grid";
 
 export default function LoginPage() {
     const [credentials, setCredentials] = useState({
@@ -69,16 +70,20 @@ export default function LoginPage() {
         }
     }
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeDark}>
             <Container component="main"
                        maxWidth="xs"
-                       sx={{height:"100vh",
+                       sx={{
+                           display:"flex",
+                           justifyContent:"center",
+                           height:"100vh",
                            background: 'linear-gradient(to bottom, #484E54 0%,#484E54 60%, #20C6BE 60%, #20C6BE 100%)',
-                           overflow: 'hidden'
+                           overflow: 'hidden',
+                           position:"relative"
             }}
             >
                 <CssBaseline />
-                <Container sx={{marginTop: 8}}>
+                <Container sx={{position: "absolute", top: "10%"}}>
                     <img
                         width="100%"
                         src="/logo.png"
@@ -88,6 +93,8 @@ export default function LoginPage() {
 
                 <Box
                     sx={{
+                        position: "absolute",
+                        bottom: "15%",
                         width:"85%",
                         marginX: "auto",
                         padding: 2,
@@ -102,55 +109,60 @@ export default function LoginPage() {
                     <Typography component="h1" variant="h5" color="secondary.contrastText">
                         Sign In
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate>
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            size="small"
-                            id="username"
-                            label="Username"
-                            name="username"
-                            value={credentials.username}
-                            autoComplete="username"
-                            autoFocus
-                            sx={{
-                                input: {
-                                    color: "#000000",
-                                    background: "#DEE0E6"
-                                },
-                                label: {
-                                    color: "#000000"
-                                },
-                                boxShadow: 2,
-                                borderRadius: 2
-                            }}
-                            onChange = {handleChange}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            size="small"
-                            name="password"
-                            label="Password"
-                            type="password"
-                            id="password"
-                            value={credentials.password}
-                            autoComplete="current-password"
-                            sx={{
-                                input: {
-                                    color: "#000000",
-                                    background: "#DEE0E6"
-                                },
-                                label: {
-                                    color: "#000000"
-                                },
-                                boxShadow: 2,
-                                borderRadius: 2
-                            }}
-                            onChange = {handleChange}
-                        />
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+                        <Grid container spacing={2}>
+                            <Grid item xs={12} >
+                                <TextField
+                                    required
+                                    fullWidth
+                                    size="small"
+                                    id="username"
+                                    label="username"
+                                    name="username"
+                                    value={credentials.username}
+                                    autoComplete="username"
+                                    autoFocus
+                                    sx={{
+                                        input: {
+                                            color: "#000000",
+                                            background: "#DEE0E6"
+                                        },
+                                        label: {
+                                            color: "#000000"
+                                        },
+                                        boxShadow: 2,
+                                        borderRadius: 2
+                                    }}
+                                    onChange = {handleChange}
+                                />
+                            </Grid>
+
+                            <Grid item xs={12}>
+                                <TextField
+                                    required
+                                    fullWidth
+                                    size="small"
+                                    name="password"
+                                    label="password"
+                                    type="password"
+                                    id="password"
+                                    value={credentials.password}
+                                    autoComplete="current-password"
+                                    sx={{
+                                        input: {
+                                            color: "#000000",
+                                            background: "#DEE0E6"
+                                        },
+                                        label: {
+                                            color: "#000000"
+                                        },
+                                        boxShadow: 2,
+                                        borderRadius: 2
+                                    }}
+                                    onChange = {handleChange}
+                                />
+                            </Grid>
+                        </Grid>
                         {error &&
                             <Alert severity="error" sx={{mb: 2}}>
                                 <AlertTitle>Error</AlertTitle>
@@ -161,14 +173,14 @@ export default function LoginPage() {
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
+                            sx={{ mt: 3}}
                         >
                            Login
                         </Button>
                         <Button
                             fullWidth
                             variant="outlined"
-                            sx={{mb: 2 }}
+                            sx={{mt: 2,mb: 2 }}
                             onClick={handleClick}
                         >
                             Login with Test Account

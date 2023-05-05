@@ -50,7 +50,7 @@ export default function ChartGallery({transactions} : {transactions: Transaction
     return (
         <>
             <SelectTimePeriod/>
-            <Box display="flex">
+            <Box display="flex" marginY={5}>
                 <IconButton onClick={() => goToPrevious()}>
                     <ArrowBackIosIcon/>
                 </IconButton>

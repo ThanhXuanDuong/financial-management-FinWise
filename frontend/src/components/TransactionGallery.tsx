@@ -11,8 +11,8 @@ export default function TransactionGallery({transactions} : {transactions: Trans
     const [filter, setFilter] = React.useState('time');
 
     return (
-        <Container sx ={{backgroundColor: "primary.main"}}>
-            <Box display="flex" justifyContent="space-between" marginY={5}>
+        <Container sx ={{backgroundColor: "primary.main", paddingY: 5}}>
+            <Box display="flex" justifyContent="space-between" alignItems="center" marginBottom={2}>
                 <Filter filter={filter} setFilter={setFilter}/>
                 <AddTransactionButton/>
             </Box>

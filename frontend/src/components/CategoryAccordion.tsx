@@ -52,10 +52,10 @@ export default function CategoryAccordion({
 
                             {count === 1
                                 ? <Typography variant="body2" color="text.secondary">
-                                    {count}Transaction
+                                    {count} Transaction
                                 </Typography>
                                 : <Typography variant="body2" color="text.secondary">
-                                    {count}Transactions
+                                    {count} Transactions
                                 </Typography>
                             }
 
