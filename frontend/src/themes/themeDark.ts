@@ -1,7 +1,8 @@
 import { createTheme } from '@mui/material/styles';
 
-const theme = createTheme({
+const themeDark = createTheme({
     palette: {
+        mode:'dark',
         background:{
             default: '#484E54',
         },
@@ -11,10 +12,11 @@ const theme = createTheme({
             contrastText:'#ffffff'
         },
         secondary: {
-            main: '#FF8043',
-            contrastText:'#ffffff'
+            main: '#DEE0E6',
+            contrastText:'#000000'
         },
 
     },
 });
-export default theme;
+
+export default themeDark;

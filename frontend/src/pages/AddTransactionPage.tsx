@@ -62,7 +62,7 @@ export default function AddTransactionPage(){
 
     return (
         <>
-            <IconButton onClick={() => navigate("/dashboard")}>
+            <IconButton onClick={() => navigate("/")}>
                 <ArrowBackIosIcon sx={{color:'primary.contrastText'}}/>
             </IconButton>
             {!user ? null :

@@ -1,7 +1,9 @@
+import LogoutButton from "./LogoutButton";
+
 export default function MenuList(){
     return (
         <div>
-            MenuList
+            <LogoutButton/>
         </div>
     )
 }

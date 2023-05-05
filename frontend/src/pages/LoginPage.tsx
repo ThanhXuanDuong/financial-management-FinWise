@@ -1,34 +1,17 @@
 import * as React from 'react';
-import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {ThemeProvider } from '@mui/material/styles';
 import {FormEvent, useCallback, useMemo, useState} from "react";
 import axios from "axios";
 import {Alert, AlertTitle} from "@mui/material";
 import {useLocation, useNavigate, useSearchParams} from "react-router-dom";
-
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit" href="https://mui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-
-const theme = createTheme();
+import theme from "../themes/themeDark";
 
 export default function LoginPage() {
     const [credentials, setCredentials] = useState({
@@ -72,47 +55,100 @@ export default function LoginPage() {
         }, [credentials,navigate,redirect]
     );
 
+    const handleClick = async() => {
+        try {
+            await axios.post("/api/app-users/login", null, {
+                headers:
+                    {
+                        "Authorization": "Basic " + window.btoa("user:password")
+                    }
+            });
+            navigate(redirect);
+        }catch (e) {
+            setError("Error while logging in");
+        }
+    }
     return (
         <ThemeProvider theme={theme}>
-            <Container component="main" maxWidth="xs">
+            <Container component="main"
+                       maxWidth="xs"
+                       sx={{height:"100vh",
+                           background: 'linear-gradient(to bottom, #484E54 0%,#484E54 60%, #20C6BE 60%, #20C6BE 100%)',
+                           overflow: 'hidden'
+            }}
+            >
                 <CssBaseline />
+                <Container sx={{marginTop: 8}}>
+                    <img
+                        width="100%"
+                        src="/logo.png"
+                        alt="logo"
+                    />
+                </Container>
+
                 <Box
                     sx={{
-                        marginTop: 8,
+                        width:"85%",
+                        marginX: "auto",
+                        padding: 2,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        backgroundColor: '#ffffff',
+                        boxShadow: 2,
+                        borderRadius: 2
                     }}
                 >
-                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-                        <LockOutlinedIcon />
-                    </Avatar>
-                    <Typography component="h1" variant="h5">
-                        Sign in
+                    <Typography component="h1" variant="h5" color="secondary.contrastText">
+                        Sign In
                     </Typography>
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} noValidate>
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            size="small"
                             id="username"
                             label="Username"
                             name="username"
                             value={credentials.username}
                             autoComplete="username"
                             autoFocus
+                            sx={{
+                                input: {
+                                    color: "#000000",
+                                    background: "#DEE0E6"
+                                },
+                                label: {
+                                    color: "#000000"
+                                },
+                                boxShadow: 2,
+                                borderRadius: 2
+                            }}
                             onChange = {handleChange}
                         />
                         <TextField
                             margin="normal"
                             required
                             fullWidth
+                            size="small"
                             name="password"
                             label="Password"
                             type="password"
                             id="password"
                             value={credentials.password}
                             autoComplete="current-password"
+                            sx={{
+                                input: {
+                                    color: "#000000",
+                                    background: "#DEE0E6"
+                                },
+                                label: {
+                                    color: "#000000"
+                                },
+                                boxShadow: 2,
+                                borderRadius: 2
+                            }}
                             onChange = {handleChange}
                         />
                         {error &&
@@ -127,23 +163,25 @@ export default function LoginPage() {
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Sign In
+                           Login
                         </Button>
-                        <Grid container>
-                            <Grid item xs>
-                                <Link href="#" variant="body2">
-                                    Forgot password?
-                                </Link>
-                            </Grid>
-                            <Grid item>
-                                <Link href={"/signup" + location.search} variant="body2">
-                                    {"Don't have an account? Sign Up"}
-                                </Link>
-                            </Grid>
-                        </Grid>
+                        <Button
+                            fullWidth
+                            variant="outlined"
+                            sx={{mb: 2 }}
+                            onClick={handleClick}
+                        >
+                            Login with Test Account
+                        </Button>
+
+                        <Box display="flex" justifyContent="center">
+                            <Link href={"/signup" + location.search} variant="body2">
+                                {"Sign Up Here"}
+                            </Link>
+                        </Box>
+
                     </Box>
                 </Box>
-                <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
         </ThemeProvider>
     );

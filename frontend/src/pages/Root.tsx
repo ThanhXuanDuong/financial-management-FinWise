@@ -3,13 +3,12 @@ import LoginPage from "./LoginPage";
 import DashboardPage from "./DashboardPage";
 import Auth from "../login/Auth";
 import SignUpPage from "./SignUpPage";
-import HomePage from "./HomePage";
 import {useMemo} from "react";
 import NoAuth from "../login/NoAuth";
 import { ThemeProvider } from "@emotion/react";
 import {CssBaseline} from "@mui/material";
-import theme from "../themes/theme";
 import AddTransactionPage from "./AddTransactionPage";
+import themeDark from "../themes/themeDark";
 
 export default function Root(){
     const [searchParams] = useSearchParams();
@@ -18,12 +17,10 @@ export default function Root(){
         [searchParams]
     );
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider theme={themeDark}>
             <CssBaseline/>
             <Routes>
                 <Route >
-                    <Route path={"/"} element={<HomePage/>}/>
-
                     <Route path={"/signup"} element={
                         <NoAuth redirect={redirect}>
                             <SignUpPage />
@@ -38,7 +35,7 @@ export default function Root(){
                         }
                     />
 
-                    <Route path={"/dashboard"} element={
+                    <Route path={"/"} element={
                         <Auth>
                             <DashboardPage />
                         </Auth>
