@@ -28,6 +28,13 @@ public class TransactionController {
         return transactionService.getById(id);
     }
 
+    @GetMapping("/{userId}/between")
+    public List<Transaction> getByDateBetween(@PathVariable String userId,
+                                              @RequestParam("gt") String dateGt,
+                                              @RequestParam("lt") String dateLt) throws IllegalAccessException {
+        return transactionService.getByDateBetween(userId,dateGt, dateLt);
+    }
+
     @PutMapping("/{id}")
     public Transaction updateById(@PathVariable String id,@RequestBody Transaction transaction) throws NotFoundException {
         return transactionService.updateById(id,transaction);
