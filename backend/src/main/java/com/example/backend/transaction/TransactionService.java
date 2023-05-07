@@ -34,12 +34,12 @@ public class TransactionService {
         return transactionRepository.findById(id).orElseThrow(NotFoundException::new);
     }
 
-    public List<Transaction> getByDateBetween(String userId, String dateGt, String dateLt) throws IllegalAccessException {
+    public List<Transaction> getByDateBetween(String userId, String dateGte, String dateLte) throws IllegalAccessException {
         if (!userId.equals(appUserService.getAuthenticatedUser().getId())){
             throw new IllegalAccessException();
         }
         Query query = new Query();
-        query.addCriteria(Criteria.where("datum").lt(dateLt).gt(dateGt));
+        query.addCriteria(Criteria.where("datum").lte(dateLte).gte(dateGte));
 
         return mongoTemplate.find(query,Transaction.class);
     }

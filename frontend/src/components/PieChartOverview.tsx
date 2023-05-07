@@ -13,7 +13,7 @@ const renderCustomizedLabel = ({
     outerRadius,
     percent
 }: any) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.1;
+    const radius = innerRadius + (outerRadius - innerRadius) * 1.5;
     const x = cx + radius * Math.cos(-midAngle * RADIAN);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
@@ -30,28 +30,29 @@ const renderCustomizedLabel = ({
         </text>
     );
 };
-export default function PieChartExpenses({data}:{data:Data[]}) {
+export default function PieChartOverview({data1,data2}:{data1:Data[],data2:Data[]}) {
 
     return (
         <ResponsiveContainer width="100%" height={250}>
-            <PieChart width={200} height={200}>
-                <Pie data={data}
+            <PieChart height={250}>
+                <Pie data={data2}
                      dataKey="value"
                      cx="50%"
                      cy="50%"
-                     labelLine={false}
-                     label={renderCustomizedLabel}
-                     outerRadius={100}
-                     innerRadius={65}
+                     labelLine={true}
+                     label
+                     outerRadius={70}
+                     innerRadius={50}
                      isAnimationActive={false}
                 >
-                    {data.map((entry, index) => (
+                    {data2.map((entry, index) => (
                         <Cell key={entry.name}
                               fill={COLORS[index % COLORS.length]}
                               stroke={COLORS[index % COLORS.length]}
                         />
                     ))}
                 </Pie>
+
                 <Legend verticalAlign="bottom"/>
             </PieChart>
         </ResponsiveContainer>

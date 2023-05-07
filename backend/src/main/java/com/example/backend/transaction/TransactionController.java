@@ -30,9 +30,9 @@ public class TransactionController {
 
     @GetMapping("/{userId}/between")
     public List<Transaction> getByDateBetween(@PathVariable String userId,
-                                              @RequestParam("gt") String dateGt,
-                                              @RequestParam("lt") String dateLt) throws IllegalAccessException {
-        return transactionService.getByDateBetween(userId,dateGt, dateLt);
+                                              @RequestParam("gte") String dateGte,
+                                              @RequestParam("lte") String dateLte) throws IllegalAccessException {
+        return transactionService.getByDateBetween(userId,dateGte, dateLte);
     }
 
     @PutMapping("/{id}")

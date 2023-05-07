@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import LogoutButton from "./LogoutButton";
 import MenuList from "./MenuList";
 
-export default function NavBar() {
+export default function NavBar({title}:{title:string}) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -15,7 +15,7 @@ export default function NavBar() {
                 <AppBar position="fixed" sx={{ boxShadow: "none" }}>
                     <Toolbar sx={{backgroundColor:"#484E54", color:"#fffff"}}>
                         <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-                            Overview
+                            {title}
                         </Typography>
                         {matches
                             ? <LogoutButton/>

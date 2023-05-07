@@ -6,20 +6,21 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Data from "../types/data";
 import {useState} from "react";
-import PieChartExpenses from "./PieChartExpenses";
+import PieChartExpenses from "./PieChartOverview";
 import BarChartExpenses from "./BarChartExpenses";
 import AreaChartSummary from "./AreaChartSummary";
-import SelectTimePeriod from "./SelectTimePeriod";
 import useByTimePeriod from "../hooks/useByTimePeriod";
 import Summary from "../types/summary";
 
-const charts = [
-    {art: "pie", title:""},
-    {art: "horizontal bar", title:""},
-    {art: "area", title:""}
-];
-
-export default function ChartGallery({transactions} : {transactions: Transaction[]}) {
+export default function ChartGallery({
+    transactions,
+    charts,
+    setTitle
+} : {
+    transactions: Transaction[],
+    charts:{art:string,title:string}[],
+    setTitle: (title:string) => void
+}) {
     const transactionsByCategory = useByCategory(transactions);
 
     const dataByCategory : Data[] = transactionsByCategory.map(t => {
@@ -28,6 +29,9 @@ export default function ChartGallery({transactions} : {transactions: Transaction
 
     const expenses = dataByCategory.filter(d => d.value<0).map(d => {
         return {name: d.name, value: -d.value}
+    });
+    const income = dataByCategory.filter(d => d.value>0).map(d => {
+        return {name: d.name, value: d.value}
     });
 
     const summaryByTimePeriod: Summary[] = useByTimePeriod(transactions);
@@ -38,6 +42,7 @@ export default function ChartGallery({transactions} : {transactions: Transaction
             ? charts.length -1
             : currIndex - 1;
         setCurrIndex(newIndex);
+        setTitle(charts[newIndex].title);
     };
 
     const goToNext = () => {
@@ -45,29 +50,26 @@ export default function ChartGallery({transactions} : {transactions: Transaction
             ? 0
             : currIndex + 1;
         setCurrIndex(newIndex);
+        setTitle(charts[newIndex].title);
     };
 
     return (
-        <>
-            <SelectTimePeriod/>
-            <Box display="flex" marginY={5}>
-                <IconButton onClick={() => goToPrevious()}>
-                    <ArrowBackIosIcon/>
-                </IconButton>
-                {currIndex === 0 &&
-                    <PieChartExpenses data={expenses}/>
-                }
-                {currIndex === 1 &&
-                    <BarChartExpenses data={expenses}/>
-                }
-                {currIndex === 2 &&
-                    <AreaChartSummary data={summaryByTimePeriod}/>
-                }
-                <IconButton onClick={() => goToNext()}>
-                    <ArrowForwardIosIcon/>
-                </IconButton>
-            </Box>
-        </>
-
+        <Box display="flex" marginY={2}>
+            <IconButton onClick={() => goToPrevious()}>
+                <ArrowBackIosIcon/>
+            </IconButton>
+            {currIndex === 0 &&
+                <PieChartExpenses data1={income} data2={expenses}/>
+            }
+            {currIndex === 1 &&
+                <BarChartExpenses data={expenses}/>
+            }
+            {currIndex === 2 &&
+                <AreaChartSummary data={summaryByTimePeriod}/>
+            }
+            <IconButton onClick={() => goToNext()}>
+                <ArrowForwardIosIcon/>
+            </IconButton>
+        </Box>
     )
 }
