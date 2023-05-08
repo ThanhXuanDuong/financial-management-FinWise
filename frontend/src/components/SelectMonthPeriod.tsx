@@ -10,10 +10,9 @@ export function getMonths(monthDistance: number){
     const months = [];
     const now = new Date();
     for (let i=0; i< monthDistance; i++){
-        months[i] = now.getFullYear() + "/" + (now.getMonth()+1 -i);
-        console.log(now.getMonth()+1 -i);
+        const month = new Date(now.getFullYear(), now.getMonth()- i+1)
+        months[i] = month.toISOString().substring(0,7)
     }
-
     return months.reverse();
 }
 export default function SelectMonthPeriod({

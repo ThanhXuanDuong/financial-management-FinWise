@@ -18,7 +18,7 @@ function getDateFromNow(dateDistance: number) {
 }
 function getMonthFromNow(monthDistance: number) {
     const now = new Date();
-    return new Date(now.getFullYear(), now.getMonth()- monthDistance);
+    return new Date(now.getFullYear(), now.getMonth()- monthDistance+1);
 }
 export  function dateQuery(distance: number, ofDate:boolean){
     let dateLte = new Date().toISOString().substring(0,10);
@@ -36,6 +36,7 @@ export default function DashboardPage(){
     const [queryOverview, setQueryOverview] = useState<string>(dateQuery(6,false));
     const [title, setTitle] = useState<string>(charts[1].title);
 
+    console.log(queryOverview)
     useEffect(() => {
         if (!user || !query) return;
         (async () => {

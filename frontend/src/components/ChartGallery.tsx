@@ -6,7 +6,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Data from "../types/data";
 import {useState} from "react";
-import PieChartExpenses from "./PieChartOverview";
+import PieChartExpenses from "./PieChartExpenses";
 import BarChartExpenses from "./BarChartExpenses";
 import BarChartSummary from "./BarChartSummary";
 import useSummaryByMonth from "../hooks/useSummaryByMonth";
@@ -61,7 +61,7 @@ export default function ChartGallery({
     return (
         <Box display="flex" marginY={2}>
             <IconButton onClick={() => goToPrevious()}>
-                <ArrowBackIosIcon/>
+                <ArrowBackIosIcon sx={{fontSize:"1rem"}}/>
             </IconButton>
             {currIndex === 0 &&
                 <PieChartExpenses data={expenses} setQuery={setQuery}/>
@@ -73,7 +73,7 @@ export default function ChartGallery({
                 <BarChartSummary data={summaryByMonth} setQuery={setQueryOverview} setMonths={setMonths}/>
             }
             <IconButton onClick={() => goToNext()}>
-                <ArrowForwardIosIcon/>
+                <ArrowForwardIosIcon sx={{fontSize:"1rem"}}/>
             </IconButton>
         </Box>
     )

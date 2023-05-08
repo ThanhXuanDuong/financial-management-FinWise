@@ -4,7 +4,8 @@ import Data from "../types/data";
 import SelectDatePeriod from "./SelectDatePeriod";
 import {Stack} from "@mui/material";
 
-const COLORS = ["#00C49F","#FF8042","#0088FE", "#FFBB28"];
+const COLORS = ["#00C49F","#FF8042","#0088FE", "#FFBB28",
+                "#7678ed","#386641","#3b8ea5","#ff4d6d","#ffd60a"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({
@@ -32,7 +33,7 @@ const renderCustomizedLabel = ({
         </text>
     );
 };
-export default function PieChartOverview({data, setQuery}:{data:Data[], setQuery: (query:string) => void}) {
+export default function PieChartExpenses({data, setQuery}:{data:Data[], setQuery: (query:string) => void}) {
 
     return (
         <Stack width="100%">

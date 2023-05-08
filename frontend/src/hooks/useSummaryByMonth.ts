@@ -2,8 +2,9 @@ import Transaction from "../types/Transaction";
 
 export default function useSummaryByMonth(transactions:Transaction[],months:string[]){
 
-    return months.map((month,index) => {
-        const filtered = transactions.filter(t => new Date(t.datum).getMonth() +1 === index);
+    return months.map((month) => {
+        const filtered = transactions.filter(t =>
+            new Date(t.datum).getMonth() === new Date(month).getMonth());
 
         const expensesArr = filtered.filter(f => parseFloat(f.amount) <0 )
         let expenses;

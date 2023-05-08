@@ -31,7 +31,7 @@ export default function CsvUpload(){
                             }}
                     > UPLOAD CSV</Button>
 
-                    <Button sx={{width:"33%"}} variant="outlined">Submit</Button>
+                    <Button type="submit" sx={{width:"33%"}} variant="outlined">Submit</Button>
                 </Box>
 
                 <input
