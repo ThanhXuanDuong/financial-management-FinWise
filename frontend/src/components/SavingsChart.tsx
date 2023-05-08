@@ -8,9 +8,10 @@ import {
     YAxis
 } from "recharts";
 import React from "react";
-import {Stack} from "@mui/material";
+import {Stack, useMediaQuery, useTheme} from "@mui/material";
 import SelectMonthPeriod from "./SelectMonthPeriod";
 import Summary from "../types/summary";
+import Typography from "@mui/material/Typography";
 
 export default function SavingsChart({
     data,
@@ -26,13 +27,19 @@ export default function SavingsChart({
     const dataSet = data.map(d => {
         return{month: d.month,saving: d.diff, goal: savingsGoal}
     });
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
-    console.log(savingsGoal)
 
     return (
         <>
         {savingsGoal !==-1 &&
             <Stack width="100%">
+                {matches &&
+                    <Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"center"}}>
+                        Savings overview
+                    </Typography>
+                }
                 <SelectMonthPeriod setQuery={setQuery} setMonths={setMonths}/>
                 <ResponsiveContainer width="100%" height={270}>
                     <ComposedChart height={270} data={dataSet}

@@ -5,13 +5,14 @@ import useAuth from "../hooks/useAuth";
 import React, {useEffect, useState} from "react";
 import Transaction from "../types/Transaction";
 import axios from "axios";
-import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
 const charts = [
     {art: "pie", title:"Expenses"},
-    {art: "horizontal bar", title:"Expenses"},
-    {art: "bar", title:"Overview"},
-    {art: "composed", title:"Savings"}
+    {art: "horizontal bar", title:"Expenses ranking"},
+    {art: "bar", title:"Income-Expenses overview"},
+    {art: "composed", title:"Savings overview"}
 ];
 function getDateFromNow(dateDistance: number) {
     const now = new Date();
@@ -78,20 +79,29 @@ export default function DashboardPage(){
     return (
         <>
             { user &&
-                <>
-                    <Container  sx = {{marginTop: "64px"}}>
-                        <NavBar title ={title} setSavingsGoal={setSavingsGoal}/>
-                        <ChartGallery transactions={transactions}
-                                      transactionOverview={transactionOverview}
-                                      charts={charts}
-                                      savingsGoal={savingsGoal}
-                                      setTitle={setTitle}
-                                      setQuery={setQuery}
-                                      setQueryOverview={setQueryOverview}
-                        />
-                    </Container>
-                    <TransactionGalery transactions={transactions}/>
-                </>
+                <Box  sx = {{width: "100%", marginTop: "64px"}}>
+                    <NavBar title ={title} setSavingsGoal={setSavingsGoal}/>
+
+                    <Grid container
+                          spacing={2}
+                          justifyContent = "center"
+                          alignItems="center"
+                    >
+                        <Grid item xl={8} lg={7} md={7} sm={12} xs={12}>
+                            <ChartGallery transactions={transactions}
+                                          transactionOverview={transactionOverview}
+                                          charts={charts}
+                                          savingsGoal={savingsGoal}
+                                          setTitle={setTitle}
+                                          setQuery={setQuery}
+                                          setQueryOverview={setQueryOverview}
+                            />
+                        </Grid>
+                        <Grid item xl={4} lg={5} md={5} sm={12} xs={12}>
+                            <TransactionGalery transactions={transactions}/>
+                        </Grid>
+                    </Grid>
+                </Box>
             }
         </>
     )

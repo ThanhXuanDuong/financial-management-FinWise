@@ -18,6 +18,6 @@ export default function  LogoutButton() {
     );
 
     return(
-        <Button variant="outlined" size="small" onClick={logout}>Logout</Button>
+        <Button size="small" onClick={logout}>Logout</Button>
     )
 }

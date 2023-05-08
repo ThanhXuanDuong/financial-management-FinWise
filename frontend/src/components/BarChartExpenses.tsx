@@ -10,14 +10,36 @@ import {
 import Data from "../types/data";
 import React from "react";
 import SelectDatePeriod from "./SelectDatePeriod";
-import {Stack} from "@mui/material";
+import {Stack, useMediaQuery, useTheme} from "@mui/material";
+import Typography from "@mui/material/Typography";
 
-export default function BarChartExpenses({data, setQuery}:{data:Data[], setQuery: (query:string) => void}){
+export default function BarChartExpenses({
+    data,
+    setQuery,
+    dateDistance,
+    setDateDistance
+}:{
+    data:Data[],
+    setQuery: (query:string) => void,
+    dateDistance: number,
+    setDateDistance: (dateDistance: number) => void
+}) {
     const sortedData = [...data].sort((a, b) => a.value - b.value).reverse();
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
     return (
         <Stack width="100%">
-            <SelectDatePeriod setQuery={setQuery}/>
+            {matches &&
+                <Typography variant="h6" component="div" sx={{ flexGrow: 1,textAlign:"center"}}>
+                    Expenses ranking
+                </Typography>
+            }
+
+            <SelectDatePeriod setQuery={setQuery}
+                              dateDistance={dateDistance}
+                              setDateDistance={setDateDistance}
+            />
             <ResponsiveContainer width="100%" height={270}>
                 <BarChart  width={400} height={270} data={sortedData}
                            margin={{top: 0, right: 20, left: 10, bottom: 10}}

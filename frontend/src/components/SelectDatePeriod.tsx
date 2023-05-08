@@ -3,15 +3,17 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Box from "@mui/material/Box";
-import {useState} from "react";
 import {dateQuery} from "../pages/DashboardPage";
 
 export default function SelectDatePeriod({
-    setQuery
+    setQuery,
+    dateDistance,
+    setDateDistance
 }:{
-    setQuery: (query:string) => void
+    setQuery: (query:string) => void,
+    dateDistance: number,
+    setDateDistance: (dateDistance: number) => void
 }) {
-    const [dateDistance, setDateDistance] = useState<number>(30);
     const handleChange = (event: SelectChangeEvent) => {
         setDateDistance(parseInt(event.target.value));
         setQuery(dateQuery(parseInt(event.target.value),true));

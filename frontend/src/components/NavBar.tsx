@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import LogoutButton from "./LogoutButton";
 import MenuList from "./MenuList";
-import SavingsGoalFormDialog from "./SavingsGoalFormDialog";
+import SavingsGoalButton from "./SavingsGoalButton";
 
 export default function NavBar({
     title,
@@ -19,17 +19,21 @@ export default function NavBar({
     return (
         <ThemeProvider theme={theme}>
             <Box sx={{ flexGrow: 1 }}>
-                <AppBar position="fixed" sx={{ boxShadow: "none" }}>
+                <AppBar sx={{ boxShadow: "none" }}>
                     <Toolbar sx={{backgroundColor:"#484E54", color:"#fffff"}}>
-                        <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
-                            {title}
-                        </Typography>
                         {matches
-                            ? <Box display="flex" gap={2}>
-                                <SavingsGoalFormDialog setSavingsGoal={setSavingsGoal}/>
+                            ? <Box width="100%" display="flex" justifyContent="space-between">
+                                <SavingsGoalButton setSavingsGoal={setSavingsGoal}/>
                                 <LogoutButton/>
                               </Box>
-                            : <MenuList/>}
+                            :
+                            <>
+                                <Typography variant="body1" component="div" sx={{ flexGrow: 1 }}>
+                                    {title}
+                                </Typography>
+                                <MenuList setSavingsGoal={setSavingsGoal}/>
+                            </>
+                        }
                     </Toolbar>
                 </AppBar>
             </Box>

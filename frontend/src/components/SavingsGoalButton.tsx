@@ -11,21 +11,19 @@ import Box from "@mui/material/Box";
 import {ChangeEvent, useState} from "react";
 import axios from "axios";
 
-export default function SavingsGoalFormDialog({
-    setSavingsGoal,
-    setAnchorEl
+export default function SavingsGoalButton({
+    setSavingsGoal
 }:{
     setSavingsGoal: (goal: number) => void,
-    setAnchorEl: (anchorEl: null|HTMLElement) => void
 }) {
-    const [open, setOpen] = React.useState(false);
+    const [openForm, setOpenForm] = React.useState(false);
     const [savingRequestBody, setSavingRequestBody] = useState({goal: 0})
     const handleClickOpen = () => {
-        setOpen(true);
+        setOpenForm(true);
     };
 
     const handleClose = () => {
-        setOpen(false);
+        setOpenForm(false);
     };
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
@@ -41,8 +39,7 @@ export default function SavingsGoalFormDialog({
                 alert("Error while loading data");
             }
         })();
-        setOpen(false);
-        setAnchorEl(null);
+        setOpenForm(false);
     }
 
     return (
@@ -50,7 +47,7 @@ export default function SavingsGoalFormDialog({
             <Button onClick={handleClickOpen}>
                 Set Savings Goal
             </Button>
-            <Dialog open={open} onClose={handleClose}>
+            <Dialog open={openForm} onClose={handleClose}>
                 <DialogTitle>Setting</DialogTitle>
                 <DialogContent>
                     <DialogContentText marginY={2}>
