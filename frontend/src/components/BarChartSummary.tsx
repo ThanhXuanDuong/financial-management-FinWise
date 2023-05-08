@@ -25,8 +25,8 @@ export default function BarChartSummary({
     return (
         <Stack width="100%">
             <SelectMonthPeriod setQuery={setQuery} setMonths={setMonths}/>
-            <ResponsiveContainer width="100%" height={250}>
-                <BarChart height={250} data={data}
+            <ResponsiveContainer width="100%" height={270}>
+                <BarChart height={270} data={data}
                           margin={{top: 0, right: 0, left: 0, bottom: 10}}
                 >
                     <CartesianGrid strokeDasharray="3 3" vertical={false} />

@@ -10,7 +10,8 @@ import Container from "@mui/material/Container";
 const charts = [
     {art: "pie", title:"Expenses"},
     {art: "horizontal bar", title:"Expenses"},
-    {art: "area", title:"Overview"}
+    {art: "bar", title:"Overview"},
+    {art: "composed", title:"Savings"}
 ];
 function getDateFromNow(dateDistance: number) {
     const now = new Date();
@@ -29,14 +30,16 @@ export  function dateQuery(distance: number, ofDate:boolean){
 }
 export default function DashboardPage(){
     const {user} = useAuth();
+
     const [transactions, setTransactions] = useState<Transaction[]>([]);
     const [query, setQuery] = useState<string>(dateQuery(30,true));
 
     const [transactionOverview, setTransactionOverview] = useState<Transaction[]>([]);
     const [queryOverview, setQueryOverview] = useState<string>(dateQuery(6,false));
-    const [title, setTitle] = useState<string>(charts[1].title);
 
-    console.log(queryOverview)
+    const [title, setTitle] = useState<string>(charts[1].title);
+    const [savingsGoal, setSavingsGoal] = useState<number>(-1);
+
     useEffect(() => {
         if (!user || !query) return;
         (async () => {
@@ -61,15 +64,27 @@ export default function DashboardPage(){
         })()
     },[queryOverview, user])
 
+    useEffect(() => {
+        (async () => {
+            try{
+                const res = await axios.get("/api/saving");
+                setSavingsGoal(res.data.goal);
+            }catch(e){
+                alert("Error while loading data");
+            }
+        })()
+    },[])
+
     return (
         <>
             { user &&
                 <>
                     <Container  sx = {{marginTop: "64px"}}>
-                        <NavBar title ={title}/>
+                        <NavBar title ={title} setSavingsGoal={setSavingsGoal}/>
                         <ChartGallery transactions={transactions}
                                       transactionOverview={transactionOverview}
                                       charts={charts}
+                                      savingsGoal={savingsGoal}
                                       setTitle={setTitle}
                                       setQuery={setQuery}
                                       setQueryOverview={setQueryOverview}

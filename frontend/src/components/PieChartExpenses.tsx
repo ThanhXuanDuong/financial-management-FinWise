@@ -38,7 +38,7 @@ export default function PieChartExpenses({data, setQuery}:{data:Data[], setQuery
     return (
         <Stack width="100%">
             <SelectDatePeriod setQuery={setQuery}/>
-            <ResponsiveContainer width="100%" height={250}>
+            <ResponsiveContainer width="100%" height={270}>
                 <PieChart height={250}>
                     <Pie data={data}
                          dataKey="value"
@@ -57,8 +57,7 @@ export default function PieChartExpenses({data, setQuery}:{data:Data[], setQuery
                             />
                         ))}
                     </Pie>
-
-                    <Legend verticalAlign="bottom"/>
+                    <Legend verticalAlign="bottom" margin={{ top: 20, left: 0, right: 0, bottom: 0 }}/>
                 </PieChart>
             </ResponsiveContainer>
         </Stack>

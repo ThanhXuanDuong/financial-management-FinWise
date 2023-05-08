@@ -12,11 +12,13 @@ import BarChartSummary from "./BarChartSummary";
 import useSummaryByMonth from "../hooks/useSummaryByMonth";
 import Summary from "../types/summary";
 import {getMonths} from "./SelectMonthPeriod";
+import SavingsChart from "./SavingsChart";
 
 export default function ChartGallery({
     transactions,
     transactionOverview,
     charts,
+    savingsGoal,
     setTitle,
     setQuery,
     setQueryOverview
@@ -24,9 +26,10 @@ export default function ChartGallery({
     transactions: Transaction[],
     transactionOverview: Transaction[],
     charts:{art:string,title:string}[],
+    savingsGoal:number,
     setTitle: (title:string) => void,
     setQuery: (query:string) => void,
-    setQueryOverview: (queryOverview:string) => void
+    setQueryOverview: (queryOverview:string) => void,
 }) {
     const transactionsByCategory = useByCategory(transactions);
 
@@ -64,13 +67,23 @@ export default function ChartGallery({
                 <ArrowBackIosIcon sx={{fontSize:"1rem"}}/>
             </IconButton>
             {currIndex === 0 &&
-                <PieChartExpenses data={expenses} setQuery={setQuery}/>
+                <PieChartExpenses data={expenses}
+                                  setQuery={setQuery}/>
             }
             {currIndex === 1 &&
-                <BarChartExpenses data={expenses} setQuery={setQuery}/>
+                <BarChartExpenses data={expenses}
+                                  setQuery={setQuery}/>
             }
             {currIndex === 2 &&
-                <BarChartSummary data={summaryByMonth} setQuery={setQueryOverview} setMonths={setMonths}/>
+                <BarChartSummary data={summaryByMonth}
+                                 setQuery={setQueryOverview}
+                                 setMonths={setMonths}/>
+            }
+            {currIndex === 3 &&
+                <SavingsChart data={summaryByMonth}
+                              savingsGoal={savingsGoal}
+                              setQuery={setQueryOverview}
+                              setMonths={setMonths}/>
             }
             <IconButton onClick={() => goToNext()}>
                 <ArrowForwardIosIcon sx={{fontSize:"1rem"}}/>

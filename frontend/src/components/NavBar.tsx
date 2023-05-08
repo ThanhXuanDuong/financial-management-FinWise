@@ -4,8 +4,15 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import LogoutButton from "./LogoutButton";
 import MenuList from "./MenuList";
+import SavingsGoalFormDialog from "./SavingsGoalFormDialog";
 
-export default function NavBar({title}:{title:string}) {
+export default function NavBar({
+    title,
+    setSavingsGoal
+}:{
+    title:string,
+    setSavingsGoal: (goal: number) => void
+}) {
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -18,7 +25,10 @@ export default function NavBar({title}:{title:string}) {
                             {title}
                         </Typography>
                         {matches
-                            ? <LogoutButton/>
+                            ? <Box display="flex" gap={2}>
+                                <SavingsGoalFormDialog setSavingsGoal={setSavingsGoal}/>
+                                <LogoutButton/>
+                              </Box>
                             : <MenuList/>}
                     </Toolbar>
                 </AppBar>

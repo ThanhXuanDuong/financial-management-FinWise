@@ -18,8 +18,8 @@ export default function BarChartExpenses({data, setQuery}:{data:Data[], setQuery
     return (
         <Stack width="100%">
             <SelectDatePeriod setQuery={setQuery}/>
-            <ResponsiveContainer width="100%" height={250}>
-                <BarChart  width={400} height={200} data={sortedData}
+            <ResponsiveContainer width="100%" height={270}>
+                <BarChart  width={400} height={270} data={sortedData}
                            margin={{top: 0, right: 20, left: 10, bottom: 10}}
                            layout="vertical"
                            barCategoryGap="20%"
