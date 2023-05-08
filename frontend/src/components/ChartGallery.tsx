@@ -8,18 +8,25 @@ import Data from "../types/data";
 import {useState} from "react";
 import PieChartExpenses from "./PieChartOverview";
 import BarChartExpenses from "./BarChartExpenses";
-import AreaChartSummary from "./AreaChartSummary";
-import useByTimePeriod from "../hooks/useByTimePeriod";
+import BarChartSummary from "./BarChartSummary";
+import useSummaryByMonth from "../hooks/useSummaryByMonth";
 import Summary from "../types/summary";
+import {getMonths} from "./SelectMonthPeriod";
 
 export default function ChartGallery({
     transactions,
+    transactionOverview,
     charts,
-    setTitle
+    setTitle,
+    setQuery,
+    setQueryOverview
 } : {
     transactions: Transaction[],
+    transactionOverview: Transaction[],
     charts:{art:string,title:string}[],
-    setTitle: (title:string) => void
+    setTitle: (title:string) => void,
+    setQuery: (query:string) => void,
+    setQueryOverview: (queryOverview:string) => void
 }) {
     const transactionsByCategory = useByCategory(transactions);
 
@@ -30,11 +37,9 @@ export default function ChartGallery({
     const expenses = dataByCategory.filter(d => d.value<0).map(d => {
         return {name: d.name, value: -d.value}
     });
-    const income = dataByCategory.filter(d => d.value>0).map(d => {
-        return {name: d.name, value: d.value}
-    });
 
-    const summaryByTimePeriod: Summary[] = useByTimePeriod(transactions);
+    const [months, setMonths] = useState<string[]>(getMonths(6));
+    const summaryByMonth: Summary[] = useSummaryByMonth(transactionOverview, months);
 
     const [currIndex, setCurrIndex] = useState<number>(0);
     const goToPrevious = ()=> {
@@ -59,13 +64,13 @@ export default function ChartGallery({
                 <ArrowBackIosIcon/>
             </IconButton>
             {currIndex === 0 &&
-                <PieChartExpenses data1={income} data2={expenses}/>
+                <PieChartExpenses data={expenses} setQuery={setQuery}/>
             }
             {currIndex === 1 &&
-                <BarChartExpenses data={expenses}/>
+                <BarChartExpenses data={expenses} setQuery={setQuery}/>
             }
             {currIndex === 2 &&
-                <AreaChartSummary data={summaryByTimePeriod}/>
+                <BarChartSummary data={summaryByMonth} setQuery={setQueryOverview} setMonths={setMonths}/>
             }
             <IconButton onClick={() => goToNext()}>
                 <ArrowForwardIosIcon/>

@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import {useState} from "react";
 import {dateQuery} from "../pages/DashboardPage";
 
-export default function SelectTimePeriod({
+export default function SelectDatePeriod({
     setQuery
 }:{
     setQuery: (query:string) => void
@@ -14,21 +14,22 @@ export default function SelectTimePeriod({
     const [dateDistance, setDateDistance] = useState<number>(30);
     const handleChange = (event: SelectChangeEvent) => {
         setDateDistance(parseInt(event.target.value));
-        setQuery(dateQuery(parseInt(event.target.value)));
+        setQuery(dateQuery(parseInt(event.target.value),true));
     };
 
     return (
-        <Box display="flex" justifyContent="flex-end">
-            <FormControl variant="standard" size="small" sx={{ m: 1, minWidth: 120 }}>
+        <Box display="flex" justifyContent="flex-start">
+            <FormControl variant="standard" size="small" sx={{ mb: 2, minWidth: 80 }}>
                 <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
+                    labelId="select-standard-label"
+                    id="select-standard"
                     value={dateDistance.toString()}
                     onChange={handleChange}
                     label="Period"
+                    sx={{fontSize: "0.8rem"}}
                 >
-                    <MenuItem value={7}>last 7 days</MenuItem>
-                    <MenuItem value={30}>last 30 days</MenuItem>
+                    <MenuItem value={7} sx={{fontSize: "0.8rem"}}>last 7 days</MenuItem>
+                    <MenuItem value={30} sx={{fontSize: "0.8rem"}}>last 30 days</MenuItem>
                 </Select>
             </FormControl>
         </Box>

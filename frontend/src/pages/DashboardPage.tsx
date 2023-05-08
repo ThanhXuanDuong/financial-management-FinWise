@@ -6,7 +6,6 @@ import React, {useEffect, useState} from "react";
 import Transaction from "../types/Transaction";
 import axios from "axios";
 import Container from "@mui/material/Container";
-import SelectTimePeriod from "../components/SelectTimePeriod";
 
 const charts = [
     {art: "pie", title:"Expenses"},
@@ -17,19 +16,28 @@ function getDateFromNow(dateDistance: number) {
     const now = new Date();
     return new Date(now.getFullYear(), now.getMonth(), now.getDate() - dateDistance);
 }
-export  function dateQuery(dateDistance: number){
+function getMonthFromNow(monthDistance: number) {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth()- monthDistance);
+}
+export  function dateQuery(distance: number, ofDate:boolean){
     let dateLte = new Date().toISOString().substring(0,10);
-    let dateGte = getDateFromNow(dateDistance).toISOString().substring(0,10);
+    let dateGte = ofDate
+                    ? getDateFromNow(distance).toISOString().substring(0,10)
+                    : getMonthFromNow(distance).toISOString().substring(0,10);
     return "between?gte=" + dateGte + "&lte=" + dateLte;
 }
 export default function DashboardPage(){
     const {user} = useAuth();
     const [transactions, setTransactions] = useState<Transaction[]>([]);
-    const [query, setQuery] = useState<string>(dateQuery(30));
+    const [query, setQuery] = useState<string>(dateQuery(30,true));
+
+    const [transactionOverview, setTransactionOverview] = useState<Transaction[]>([]);
+    const [queryOverview, setQueryOverview] = useState<string>(dateQuery(6,false));
     const [title, setTitle] = useState<string>(charts[1].title);
 
     useEffect(() => {
-        if (!user || query==="") return;
+        if (!user || !query) return;
         (async () => {
             try{
                 const res = await axios.get(`/api/transactions/${user.id}/${query}`);
@@ -40,14 +48,31 @@ export default function DashboardPage(){
         })()
     },[query, user])
 
+    useEffect(() => {
+        if (!user || !queryOverview) return;
+        (async () => {
+            try{
+                const res = await axios.get(`/api/transactions/${user.id}/${queryOverview}`);
+                setTransactionOverview(res.data);
+            }catch(e){
+                alert("Error while loading data");
+            }
+        })()
+    },[queryOverview, user])
+
     return (
         <>
             { user &&
                 <>
                     <Container  sx = {{marginTop: "64px"}}>
                         <NavBar title ={title}/>
-                        <SelectTimePeriod setQuery={setQuery}/>
-                        <ChartGallery transactions={transactions} charts={charts} setTitle={setTitle}/>
+                        <ChartGallery transactions={transactions}
+                                      transactionOverview={transactionOverview}
+                                      charts={charts}
+                                      setTitle={setTitle}
+                                      setQuery={setQuery}
+                                      setQueryOverview={setQueryOverview}
+                        />
                     </Container>
                     <TransactionGalery transactions={transactions}/>
                 </>
