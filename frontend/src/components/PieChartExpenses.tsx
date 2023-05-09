@@ -5,8 +5,8 @@ import SelectDatePeriod from "./SelectDatePeriod";
 import {Stack, useMediaQuery, useTheme} from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-const COLORS = ["#00C49F","#FF8042","#0088FE", "#FFBB28",
-                "#7678ed","#386641","#3b8ea5","#ff4d6d","#ffd60a"];
+const COLORS = ["#00C49F","#0088FE","#FF8042", "#FFBB28",
+                "#ff4d6d","#386641","#7678ed","#3b8ea5","#ffd60a"];
 
 const RADIAN = Math.PI / 180;
 const renderCustomizedLabel = ({

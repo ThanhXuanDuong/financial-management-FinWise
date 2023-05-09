@@ -10,9 +10,9 @@ import Grid from "@mui/material/Grid";
 
 const charts = [
     {art: "pie", title:"Expenses"},
-    {art: "horizontal bar", title:"Expenses ranking"},
-    {art: "bar", title:"Income-Expenses overview"},
-    {art: "composed", title:"Savings overview"}
+    {art: "horizontal bar", title:"Expenses Ranking"},
+    {art: "bar", title:"Income-Expenses Overview"},
+    {art: "composed", title:"Savings Overview"}
 ];
 function getDateFromNow(dateDistance: number) {
     const now = new Date();

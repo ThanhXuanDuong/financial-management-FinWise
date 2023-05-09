@@ -14,7 +14,7 @@ export default function TransactionGallery({transactions} : {transactions: Trans
     const matches = useMediaQuery(theme.breakpoints.up('md'));
 
     return (
-        <Container sx ={{height:"100vh",
+        <Container sx ={{minHeight:"100vh",
                         backgroundColor: "primary.main",
                         paddingY: 5,
                         borderRadius:matches ? 0: "2rem 2rem 0 0"}}>

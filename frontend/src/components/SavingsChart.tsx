@@ -50,8 +50,8 @@ export default function SavingsChart({
                         <YAxis tick={{fill: 'white',fontSize:"0.6rem"}}/>
                         <Tooltip />
                         <Legend/>
-                        <Bar dataKey="saving" fill="#a594f9" />
-                        <Line type="monotone" dataKey="goal" stroke="#ff9100" />
+                        <Bar dataKey="saving" fill="#90dbf4" />
+                        <Line type="monotone" dataKey="goal" stroke="#ff6700" />
                     </ComposedChart>
                 </ResponsiveContainer>
             </Stack>
